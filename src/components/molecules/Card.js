@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Image } from "react-native";
 import { Icon, Text } from "@ui-kitten/components";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
-export default function Card() {
+export default function Card(props) {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={props.onPress}>
       <Image
         style={{width: 100, height: 100, borderRadius: 5, marginRight: 10}}
         source={require('../../../assets/200937431.jpg')}
@@ -25,13 +26,13 @@ export default function Card() {
           <View style={{flexGrow: 1}}></View>
           <View style={{flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-end'}}>
             <Icon fill='#3E3E3E' style={styles.icon} name='message-circle-outline' />
-            <Text style={styles.text} appearance='label'>3</Text>
+            <Text style={styles.text}>3</Text>
             <Icon fill='#3E3E3E' style={styles.icon} name='person-outline' />
-            <Text style={styles.text} appearance='label'>3</Text>
+            <Text style={styles.text}>3</Text>
           </View>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   )
 }
 

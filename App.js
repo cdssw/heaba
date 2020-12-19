@@ -9,6 +9,7 @@ import { EvaIconsPack } from "@ui-kitten/eva-icons";
 import { default as theme } from "./theme/heaba-theme.json";
 import HomeScreen from "./src/components/screens/HomeScreen";
 import LoginScreen from "./src/components/screens/LoginScreen";
+import ContentScreen from "./src/components/screens/ContentScreen";
 
 const Stack = createStackNavigator();
 StatusBar.setBarStyle('dark-content', true);
@@ -57,7 +58,7 @@ function App() {
                 headerTitle: '',
                 headerRight: props => <Login onPress={() => navigation.navigate("Login")} />,
                 headerStyle: {
-                  height: 100,
+                  height: 80,
                   shadowOffset: {
                     height: 0,
                   }
@@ -72,12 +73,28 @@ function App() {
                 headerTitle: '',
                 headerBackTitleVisible: false,
                 headerStyle: {
-                  height: 100,
+                  height: 80,
                   shadowOffset: {
                     height: 0,
                   }
                 },
               }}
+            />
+            <Stack.Screen
+              name='Content'
+              component={ContentScreen}
+              options={({navigation, route}) => ({
+                headerBackImage: () => <Back />,
+                headerTitle: '상세보기',
+                headerBackTitleVisible: false,
+                headerTitleStyle: { color: '#02846E' },
+                headerStyle: {
+                  height: 80,
+                  shadowOffset: {
+                    height: 0,
+                  }
+                },
+              })}
             />
           </Stack.Navigator>
         </NavigationContainer>
