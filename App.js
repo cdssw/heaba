@@ -57,6 +57,7 @@ function App() {
                 headerTitle: '',
                 headerRight: props => <Login onPress={() => navigation.navigate("Login")} />,
                 headerStyle: {
+                  height: 100,
                   shadowOffset: {
                     height: 0,
                   }
@@ -71,6 +72,7 @@ function App() {
                 headerTitle: '',
                 headerBackTitleVisible: false,
                 headerStyle: {
+                  height: 100,
                   shadowOffset: {
                     height: 0,
                   }
