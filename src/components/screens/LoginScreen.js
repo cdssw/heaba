@@ -19,10 +19,10 @@ export default function LoginScreen(props) {
 
   return (
     <LoginTemplate>
-      <LoginForm
-        loginData={loginData}
-        onChangeText={handleChangeText}
-      />
+        <LoginForm
+          loginData={loginData}
+          onChangeText={handleChangeText}
+        />
     </LoginTemplate>
   );
 }

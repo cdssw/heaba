@@ -31,7 +31,7 @@ export default function HomeScreen(props) {
       }
     >
       <ScreenTemplate>
-          {arr.map(m => <Card onPress={handlePress} />)}
+          {arr.map((m, i) => <Card key={i} onPress={handlePress} />)}
       </ScreenTemplate>
     </ScrollView>
   )
