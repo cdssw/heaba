@@ -1,10 +1,23 @@
 import { Text } from "@ui-kitten/components";
-import React, { Component } from "react";
-import { ScrollView, View } from "react-native";
+import React, { Component, useCallback, useState } from "react";
+import { RefreshControl, ScrollView, View } from "react-native";
 import ScreenTemplate from "../templates/ScreenTemplate";
 import Card from "../molecules/Card";
 
+function wait(timeout) {
+  return new Promise(resolve => {
+    setTimeout(resolve, timeout);
+  });
+}
+
 export default function HomeScreen(props) {
+  const [refreshing, setRefresing] = useState(false);
+
+  const handleRefresh = useCallback(() => {
+    setRefresing(true);
+
+    wait(1000).then(() => setRefresing(false));
+  }, []);
 
   const handlePress = e => {
     props.navigation.navigate("Content");
@@ -12,7 +25,11 @@ export default function HomeScreen(props) {
 
   const arr = Array.from({length: 10}, (m, i) => i);
   return (
-    <ScrollView>
+    <ScrollView
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+      }
+    >
       <ScreenTemplate>
           {arr.map(m => <Card onPress={handlePress} />)}
       </ScreenTemplate>
