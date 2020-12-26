@@ -1,8 +1,10 @@
-import { Text } from "@ui-kitten/components";
-import React, { Component, useCallback, useState } from "react";
-import { RefreshControl, ScrollView, View } from "react-native";
+import React, { Component, useCallback, useEffect, useState } from "react";
+import { Text, Input } from "@ui-kitten/components";
 import ScreenTemplate from "../templates/ScreenTemplate";
-import Card from "../molecules/Card";
+import CardList from "../organisms/CardList";
+import Utils from "../Utils";
+import * as Meet from "../../services/Meet";
+import * as File from "../../services/File";
 
 function wait(timeout) {
   return new Promise(resolve => {
@@ -12,27 +14,62 @@ function wait(timeout) {
 
 export default function HomeScreen(props) {
   const [refreshing, setRefresing] = useState(false);
+  const [items, setItems] = useState([]);
+  const [page, setPage] = useState(0);
+  const [param, setParam] = useState({});
+  const [loading, setLoading] = useState(false);
 
-  const handleRefresh = useCallback(() => {
-    setRefresing(true);
+  const size = 10;
 
-    wait(1000).then(() => setRefresing(false));
+  useEffect(e => {
+    fetchMoreData(0);
   }, []);
 
-  const handlePress = e => {
-    props.navigation.navigate("Content");
+  const fetchMoreData = async init => {
+    setLoading(true);
+    try {
+      const p = init === 0 ? init : page;
+      const response = await Meet.getMeetSearch({body: param, page: p, size: size, sort: 'id,desc'});
+      const data = await getImagePath(response.data.content);
+      setRefresing(false);
+      setPage(p + 1); // infinite scroll시 다음페이지 조회
+      setItems(init === 0 ? data : items.concat(data));
+    } catch(error) {
+      Utils.alertError(error);
+    } finally {
+      setLoading(false);
+    }
   }
 
-  const arr = Array.from({length: 10}, (m, i) => i);
+  const getImagePath = async arr => {
+    for (const m of arr) {
+      const data = await File.postImagesPath({fileList: m.imgList});
+      m.imgList = data.data;
+    }
+    return arr;
+  }
+
+  const handleRefresh = () => {
+    setRefresing(true);
+    fetchMoreData(0);
+  }
+
+  const handlePress = id => {
+    props.navigation.navigate("Content", {
+      id: id
+    });
+  }
+
   return (
-    <ScrollView
-      refreshControl={
-        <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
-      }
-    >
-      <ScreenTemplate>
-          {arr.map((m, i) => <Card key={i} onPress={handlePress} />)}
-      </ScreenTemplate>
-    </ScrollView>
+    <ScreenTemplate>
+      <CardList
+        items={items}
+        loading={loading}
+        refreshing={refreshing}
+        fetchMoreData={fetchMoreData}
+        onPress={handlePress}
+        onRefresh={handleRefresh}
+      />
+    </ScreenTemplate>
   )
 }

@@ -2,7 +2,6 @@ import React from "react";
 import { StyleSheet, SafeAreaView, View, TouchableWithoutFeedback, Keyboard } from "react-native";
 
 export default function LoginTemplate(props) {
-
   const handlePressEmpty = () => {
     Keyboard.dismiss();
   }

@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { StyleSheet, TouchableWithoutFeedback, View, Image } from "react-native";
 import { Button, Icon, Input, Divider, Text } from '@ui-kitten/components';
-import LoginTemplate from "../templates/LoginTemplate";
+import { StyleSheet, TouchableWithoutFeedback, View, Image } from "react-native";
 
 function Logo() {
   return (
@@ -43,15 +42,14 @@ export default function LoginForm(props) {
           autoCapitalize="none"
           onChangeText={value => props.onChangeText('username', value)}
         />
-        <View style={{marginTop: 10}}>
-          <Input
-            value={loginData.password}
-            placeholder='비밀번호를 입력하세요'
-            accessoryRight={secretIcon}
-            secureTextEntry={secureTextEntry}
-            onChangeText={value => props.onChangeText('password', value)}
-          />
-        </View>
+        <View style={{marginBottom: 10}} />
+        <Input
+          value={loginData.password}
+          placeholder='비밀번호를 입력하세요'
+          accessoryRight={secretIcon}
+          secureTextEntry={secureTextEntry}
+          onChangeText={value => props.onChangeText('password', value)}
+        />
       </View>
       <View style={{height: 102}}>
         <Button>LOGIN</Button>
