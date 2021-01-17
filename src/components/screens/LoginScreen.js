@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, TouchableWithoutFeedback, View, Image } from "react-native";
 import { Button, Icon, Input, Divider, Text } from '@ui-kitten/components';
 import LoginTemplate from "../templates/LoginTemplate";
-import LoginForm from "../organisms/LoginForm";
+import { LoginForm } from "../organisms";
 
 export default function LoginScreen(props) {
   const [loginData, setLoginData] = useState({
@@ -17,11 +17,17 @@ export default function LoginScreen(props) {
     });
   };
 
+  const handlePress = e => {
+    const {name, value} = e.target;
+    props.navigation.navigate("MyPage");
+  }
+
   return (
     <LoginTemplate>
         <LoginForm
           loginData={loginData}
           onChangeText={handleChangeText}
+          onLogin={handlePress}
         />
     </LoginTemplate>
   );

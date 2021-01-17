@@ -1,6 +1,6 @@
 import React from 'react';
 import { FlatList, View, Text, ActivityIndicator } from 'react-native';
-import Card from "../molecules/Card";
+import { Card } from "../molecules";
 
 export default function CardList(props) {
 

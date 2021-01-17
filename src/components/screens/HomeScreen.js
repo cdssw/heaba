@@ -1,7 +1,7 @@
 import React, { Component, useCallback, useEffect, useState } from "react";
 import { Text, Input } from "@ui-kitten/components";
 import ScreenTemplate from "../templates/ScreenTemplate";
-import CardList from "../organisms/CardList";
+import { CardList } from "../organisms";
 import Utils from "../Utils";
 import * as Meet from "../../services/Meet";
 import * as File from "../../services/File";

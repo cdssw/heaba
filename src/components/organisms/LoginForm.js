@@ -52,7 +52,7 @@ export default function LoginForm(props) {
         />
       </View>
       <View style={{height: 102}}>
-        <Button>LOGIN</Button>
+        <Button onPress={props.onLogin}>LOGIN</Button>
         <View style={{height: 80, flexDirection: 'row', justifyContent: 'space-between'}}>
           <View style={{paddingTop: 12, paddingLeft: 10}}><Text>아이디가 없으신가요?</Text></View>
           <View><Button status='success' appearance='ghost'>회원가입</Button></View>

@@ -1,6 +1,6 @@
 import React, { Component, useEffect, useState } from "react";
 import ScreenTemplate from "../templates/ScreenTemplate";
-import Content from "../organisms/Content";
+import { Content } from "../organisms";
 import Utils from "../Utils";
 import * as Meet from "../../services/Meet";
 import * as File from "../../services/File";
