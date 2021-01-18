@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, View, Text, ActivityIndicator } from 'react-native';
+import { SafeAreaView, StyleSheet, FlatList, View, Text } from 'react-native';
 import { Card } from "../molecules";
 
 export default function CardList(props) {
@@ -16,15 +16,23 @@ export default function CardList(props) {
   }
 
   return (
-    <FlatList
-      data={props.items}
-      renderItem={renderCard}
-      keyExtractor={(item, index) => item.id.toString()}
-      onEndReached={props.fetchMoreData}
-      onEndReachedThreshold={0.6}
-      ListFooterComponent={props.loading && <ActivityIndicator />}
-      refreshing={props.refreshing}
-      onRefresh={props.onRefresh}
-    />
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        data={props.items}
+        renderItem={renderCard}
+        keyExtractor={(item, index) => item.id.toString()}
+        onEndReached={props.fetchMoreData}
+        onEndReachedThreshold={0.6}
+        refreshing={props.refreshing}
+        onRefresh={props.onRefresh}
+      />
+    </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    paddingLeft: 20,
+    paddingRight: 20,
+  }
+});

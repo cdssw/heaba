@@ -17,7 +17,6 @@ export default function HomeScreen(props) {
   const [items, setItems] = useState([]);
   const [page, setPage] = useState(0);
   const [param, setParam] = useState({});
-  const [loading, setLoading] = useState(false);
 
   const size = 10;
 
@@ -26,7 +25,6 @@ export default function HomeScreen(props) {
   }, []);
 
   const fetchMoreData = async init => {
-    setLoading(true);
     try {
       const p = init === 0 ? init : page;
       const response = await Meet.getMeetSearch({body: param, page: p, size: size, sort: 'id,desc'});
@@ -36,8 +34,6 @@ export default function HomeScreen(props) {
       setItems(init === 0 ? data : items.concat(data));
     } catch(error) {
       Utils.alertError(error);
-    } finally {
-      setLoading(false);
     }
   }
 
@@ -64,7 +60,6 @@ export default function HomeScreen(props) {
     <ScreenTemplate>
       <CardList
         items={items}
-        loading={loading}
         refreshing={refreshing}
         fetchMoreData={fetchMoreData}
         onPress={handlePress}
